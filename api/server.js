@@ -7,8 +7,9 @@ const express = require('express');
 const mainMW = require('../middleware/generalMW.js');
 
 //server
-
 const server = express();
+
+//routers
 
 
 
