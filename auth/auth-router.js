@@ -23,7 +23,7 @@ router.post('/register', (req, res) => {
             res.status(500).json(error);
         })
     } else {
-        res.status(400).json({ message: 'Invalid info about the user, see errors for details.', errors: validateResult.errors })
+        res.status(400).json({ message: 'please enter valid credentials', errors: validateResult.errors })
     }
 });
 
@@ -34,15 +34,15 @@ router.post('/login', (req, res) => {
         .first()
         .then(user => {
             if(user && bcrypt.compareSync(password, user.password)) {
-                // 2 produce a token
+              
                 const token = getJwtToken(user.password);
-                // 3 send token to the client
+            
                 res.status(200).json({
                     token,
                     message: `Welcome ${user.username}!`,
                 });
             } else {
-                res.status(401).json({ message: 'You shall not pass!' });
+                res.status(401).json({ message: 'Error logging in, please check credentials' });
             }
         })
         .catch(error => {
