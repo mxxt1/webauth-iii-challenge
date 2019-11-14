@@ -10,6 +10,7 @@ const { validateUser } = require('../users/users-helpers.js')
 
 
 router.post('/register', (req, res) => {
+    console.log("register router");
     let user = req.body;
     
     const validateResult = validateUser(user)
@@ -33,6 +34,7 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+    console.log('login endpoint')
     let { username, password } = req.body;
 
     Users.findBy({ username })
