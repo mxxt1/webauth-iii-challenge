@@ -8,11 +8,11 @@ module.exports = (req, res, next) => {
     if(token) {
         const secret = process.env.JWT_SECRET || 'is it secret, is it safe?'
 
-        // check that the token is valid
         jwt.verify(token, secret, (err, decodedToken) => {
             if(err) {
                 res.status(401).json({  message: 'Invalid Credentials' })
             } else {
+                console.log('decode token')
                 req.decodedJwt = decodedToken;
                 next()
             }

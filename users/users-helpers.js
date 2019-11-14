@@ -4,7 +4,7 @@ module.exports = {
 
 function validateUser(user) {
     let errors = [];
-
+    console.log('test from validateUser');
     if(!user.username || user.username.length < 2) {
         errors.push('Username must be 2 or more characters')
     }
@@ -14,7 +14,7 @@ function validateUser(user) {
     }
 
     return {
-        isSuccessful: errors.length > 0 ? false : true,
+        isSuccessful: true,
         errors
     };
 }

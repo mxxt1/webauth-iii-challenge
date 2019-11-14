@@ -5,25 +5,30 @@ const jwt = require('jsonwebtoken')
 const Users = require('../users/users-model.js');
 const { validateUser } = require('../users/users-helpers.js')
 
-// for endpoints beginning with /api/auth
+
+
+
+
 router.post('/register', (req, res) => {
     let user = req.body;
-    // validate the data before sending it to the db
+    
     const validateResult = validateUser(user)
 
-    if(validateResult.isSuccessfull === true) {
+    if(validateResult.isSuccessful === true) {
         const hash = bcrypt.hashSync(user.password, 10);
         user.password = hash;
 
         Users.add(user)
         .then(saved => {
+            console.log('test from save promise');
             res.status(201).json(saved);
         })
         .catch(error => {
+            console.log('test from error promise');
             res.status(500).json(error);
-        })
+        });
     } else {
-        res.status(400).json({ message: 'please enter valid credentials', errors: validateResult.errors })
+        res.status(400).json({ message: 'please enter valid credentials', errors: validateResult.errors });
     }
 });
 
@@ -50,7 +55,7 @@ router.post('/login', (req, res) => {
         });
 });
 
-// 4
+
 function getJwtToken(username) {
     const payload = {
         username,

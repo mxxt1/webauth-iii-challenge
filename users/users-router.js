@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const User = require('./users-model.js');
+const Users = require('./users-model.js');
 const restricted = require('../auth/restricted-middleware.js');
 
 router.get('/', restricted, checkRole('admin'), (req, res) => {
@@ -18,7 +18,7 @@ function checkRole(role) {
         if(role === req.decodedJwt.role) {
             next()
         } else {
-            res.status(403).json({ message: 'Cant touch this!' })
+            res.status(403).json({ message: 'Insufficient permissions.' })
         }
     }
 }
